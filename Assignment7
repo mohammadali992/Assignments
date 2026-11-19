@@ -1,0 +1,112 @@
+#include <stdio.h>
+#include <string.h>
+	struct Sensor{
+	int Id;
+	float dist;
+	float thres;
+	char status[50];
+	char risk[30];
+	char type[30];
+	};
+	
+int main(){
+
+	int i;
+	int n;
+	int hr=0,mr=0,lr=0;
+	
+	
+	printf("Enter no of Sensors :\n");
+	scanf("%d",&n);
+	
+	struct Sensor s[n];
+	
+	for(i=1;i<=n;i++){
+	
+	printf("Sensor %d:\n",i);
+	
+	printf("ID: ");
+	scanf("%d",&s[i].Id);
+	printf("\n");
+	
+	printf("Type:");
+	scanf("%s",&s[i].type);
+	printf("\n");
+	
+	printf("Distance (cm) :");
+	scanf("%f",&s[i].dist);
+	printf("\n");
+	
+	printf("Threshold (cm) :");
+	scanf("%f",&s[i].thres);
+	printf("\n");
+	
+	if(s[i].dist <= s[i].thres){
+	strcpy(s[i].status,"Object Detected");
+             strcpy(s[i].risk,"High Risk");
+	}else if(s[i].thres < s[i].dist <= 1.5*s[i].thres){
+	strcpy(s[i].risk,"Medium Risk");
+	strcpy(s[i].status,"Obstacle near");
+	}else{
+	strcpy(s[i].risk,"Low Risk");
+	strcpy(s[i].status,"Path clear");
+	}
+	
+	
+	
+	}
+	
+	
+	
+	printf("ID   Type       Distance   Threshold  Status       Risk");
+	printf("--------------------------------------------------------");
+	
+	for(int j=1;j<=n;j++){
+	printf("%d   %s         %f         %f         %s           %s   \n",s[j].Id,s[j].type,s[j].dist,s[j].thres,s[j].status,s[j].risk);
+
+	}
+	
+	printf("Summary");
+	
+	printf("High Risk sensor:");
+	
+	for(int k=1;k<=n;k++){
+	if(strcmp(s[k].risk,"High Risk") == 0){
+	hr++;
+	}
+
+	
+	}
+	
+	for(int a=1;a<=n;a++){
+	if(strcmp(s[a].risk,"Medium Risk") == 0){
+	mr++;
+	}
+
+	
+	}
+	
+	for(int b=1;b<=n;b++){
+	if(strcmp(s[b].risk,"Low Risk") == 0){
+	lr++;
+	}
+
+	
+	}
+	
+	printf("High risk sensors :%d",hr);
+	printf("Medium risk sensors :%d",mr);
+	printf("Low risk sensors :%d",lr);
+	
+	for(int c=1;c<=n;c++){
+	if(s[c].risk=="High Risk"){
+	printf("Sensor ID:%d (%d cm) ",s[c].Id,s[c].dist);
+	}
+	
+	}
+	
+	
+	
+	
+return 0;
+}
